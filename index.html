@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>Food Club</title>
+
+</head>
+<body>
+    <nav>
+        <div class="nav_header">
+            <div class="logo nav_logo">
+                <a href="#">Food <span>Club</span></a>
+            </div>
+            <div class="nav_menu_btn" id="menu_btn">
+                <span><i class="ri-menu-line"></i></span>
+            </div>
+        </div>
+        <ul class="nav_links" id="nav-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="special.html" target="_blank">Special</a></li>
+            <li><a href="chef.html" target="_blank">Chef</a></li>
+            <li><a href="review.html" target="_blank">Customer Reviews</a></li>
+            <li><a href="login.html" target="_blank">Reserve Table</a></li>
+        </ul>
+        <div class="nav_btn">
+            <button class="button"><i class="ri-shopping-bag-fill"></i></button>
+        </div>
+    </nav>
+    <section class="section_container header_container" id="home">
+        <div class="header_image">
+            <img src="assests/dish1.png" alt="header image" srcset="">
+
+        </div>
+        <div class="header_content">
+
+            <h1>Meet,Eat & Enjoy The <span>True Taste</span></h1>
+            <p class="section_description">Discover the true essence of culinary delight as you meet the savor the authentic flavours that defines our passion</p>
+            <div class="header_btn">
+                <button class="btn">Get Started</button>
+       
+        
+
+            </div>
+        </div>    
+    </section>
+   
+    <script>
+        const menuBtn =document.getElementById('menu_btn');
+        const navLinks = document.getElementById('nav_links');
+        menuBtn.addEventListener('click',() => {
+            navLinks.classList.toggle('open');
+        });
+
+
+    </script>
+
+    
+</body>
+</html>
