@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Restaurant Reservation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      padding: 20px;
+      display:flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+
+    }
+    h2 {
+      color: #333;
+    }
+    form {
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 400px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    input, textarea, button {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      background: #eda426;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #a07d45;
+    }
+    #confirmation {
+      margin-top: 20px;
+      padding: 15px;
+      background: #d4edda;
+      color: #573f15;
+      border: 1px solid #c3e6cb;
+      border-radius: 5px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Reserve a Table</h2>
+  <form id="reservationForm">
+    <input type="text" id="name" placeholder="Full Name" required>
+    <input type="tel" id="phone" placeholder="Phone Number" required>
+    <input type="email" id="email" placeholder="Email Address" required>
+    <input type="date" id="date" required>
+    <input type="time" id="time" required>
+    <input type="number" id="guests" placeholder="Number of Guests" min="1" required>
+    <textarea id="requests" placeholder="Special Requests (optional)"></textarea>
+    <button type="submit">Book Now</button>
+  </form>
+
+  <div id="confirmation"></div>
+
+  <script>
+  document.getElementById("reservationForm").addEventListener("submit", function(event) {
+    event.preventDefault(); 
+    
+    const name = document.getElementById("name").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const date = document.getElementById("date").value;
+    const time = document.getElementById("time").value;
+    const guests = document.getElementById("guests").value;
+    const requests = document.getElementById("requests").value.trim();
+
+    // Name validation
+    const nameRegex = /^[A-Za-z\s]+$/;
+    if (!nameRegex.test(name)) {
+      alert("Please enter a valid name (letters and spaces only).");
+      return;
+    }
+
+    const phoneRegex = /^[0-9]{10}$/;
+    if (!phoneRegex.test(phone)) {
+      alert("Please enter a valid 10-digit phone number.");
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      alert("Please enter a valid email address.");
+      return;
+    }
+
+
+    const today = new Date();
+    const selectedDate = new Date(date);
+    if (selectedDate < today.setHours(0,0,0,0)) {
+      alert("Reservation date cannot be in the past.");
+      return;
+    }
+
+    const [hour, minute] = time.split(":").map(Number);
+    if (hour < 10 || hour > 22 || (hour === 22 && minute > 0)) {
+      alert("Please select a time between 10:00 and 22:00.");
+      return;
+    }
+
+    if (guests <= 0) {
+      alert("Number of guests must be at least 1.");
+      return;
+    }
+
+    // If all validations pass
+    const reservationDetails = { name, phone, email, date, time, guests, requests };
+    console.log("Reservation saved:", reservationDetails);
+
+    const confirmation = document.getElementById("confirmation");
+    confirmation.style.display = "block";
+    confirmation.innerHTML = `
+      ✅ Thank you, <strong>${name}</strong>!<br>
+      Your table for <strong>${guests}</strong> guest(s) has been reserved on 
+      <strong>${date}</strong> at <strong>${time}</strong>.<br>
+      We’ll contact you at <strong>${phone}</strong> or <strong>${email}</strong>.
+    `;
+
+    // Reset form
+    document.getElementById("reservationForm").reset();
+  });
+</script>
+</body>
+</html>
